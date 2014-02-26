@@ -1,11 +1,25 @@
-# Heaven Notifier
+# HeavenNotifier
 
-Send DeploymentStatus events to your chat network of choice.
+Heaven notifier relays messages from GitHub's [deployments API](http://developer.github.com/v3/repos/deployments/) to a chat service of your choice.
 
 # Running Locally
 
     $ bundle install --local --path vendor/gems
     $ bundle exec foreman
+
+# Notifiers
+
+Heaven notifier supports two chat services, [SlacHQ](https://slack.com/) and [Campfire](https://campfirenow.com/). It favors slackHQ if the appropriate environmental variables are present.
+
+## SlackHQ
+
+* `SLACK_TOKEN`: The token from slack's [incoming webhooks](https://tlc.slack.com/services/new/incoming-webhook) integration.
+* `SLACK_SUBDOMAIN`: The default subdomain for your team.
+
+## Campfire
+
+* `CAMPFIRE_TOKEN`: The token to send messages to campfire
+* `CAMPFIRE_SUBDOMAIN`: The default subdomain to post campfire messages to
 
 # Hosting on heroku
 
@@ -23,6 +37,4 @@ Send DeploymentStatus events to your chat network of choice.
 ## Environmental Variables
 
 * `GITHUB_TEAM_ID`: The GitHub team id to restrict resque access to.
-* `CAMPFIRE_TOKEN`: The token to send messages to campfire
-* `CAMPFIRE_SUBDOMAIN`: The default subdomain to post campfire messages to
 * `RAILS_SECRET_KEY_BASE`: The key configured in [secret_token.rb](/config/initializers/secret_token.rb).
