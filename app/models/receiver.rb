@@ -14,22 +14,10 @@ class HookReceiver
     @data ||= JSON.parse(payload)
   end
 
-  def token
-    ENV['CAMPFIRE_TOKEN'] || '0xdeadbeef'
-  end
-
-  def subdomain
-    ENV['CAMPFIRE_SUBDOMAIN'] || 'unknown'
-  end
-
-  def account
-    @account ||= Campfiyah::Account.new(subdomain, token)
-  end
-
   def run!
     return unless supported_event?
 
-    notifier = Notifier.new(account, data)
+    notifier = Notifier.new(data)
     notifier.post!(data)
   end
 

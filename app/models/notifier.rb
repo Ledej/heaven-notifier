@@ -1,8 +1,42 @@
 class Notifier
-  attr_accessor :account, :payload, :room
-  def initialize(account, payload)
-    @account = account
+  attr_accessor :payload
+
+  def initialize(payload)
     @payload = payload
+  end
+
+  def deliver(message)
+    if slack_token
+      filtered_message = Slack::Notifier::LinkFormatter.format(message)
+      slack_account.ping filtered_message, :channel => "##{chat_room}"
+    else
+      room = campfire_account.room_by_id(chat_room)
+      room.message(message)
+    end
+  end
+
+  def campfire_token
+    ENV['CAMPFIRE_TOKEN'] || '0xdeadbeef'
+  end
+
+  def campfire_subdomain
+    ENV['CAMPFIRE_SUBDOMAIN'] || 'unknown'
+  end
+
+  def campfire_account
+    @campfire_account ||= Campfiyah::Account.new(subdomain, token)
+  end
+
+  def slack_token
+    ENV['SLACK_TOKEN']
+  end
+
+  def slack_subdomain
+    ENV['SLACK_SUBDOMAIN'] || 'unknown'
+  end
+
+  def slack_account
+    @slack_account ||= Slack::Notifier.new(slack_subdomain, slack_token)
   end
 
   def data
@@ -21,10 +55,6 @@ class Notifier
     data['id']
   end
 
-  def room
-    @room ||= account.room_by_id(chat_room)
-  end
-
   def sha
     data['sha'][0..7]
   end
@@ -40,7 +70,7 @@ class Notifier
   def chat_user
     custom_payload['chat']['user'] || "unknown"
   end
-  
+
   def chat_room
     custom_payload['chat']['room']
   end
@@ -76,6 +106,6 @@ class Notifier
     else
       puts "Unhandled deployment state, #{state}"
     end
-    room.message(message)
+    deliver(message)
   end
 end
