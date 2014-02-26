@@ -7,8 +7,8 @@ class Notifier
 
   def deliver(message)
     if slack_token
-      Rails.logger.info "slack: #{message}"
       filtered_message = Slack::Notifier::LinkFormatter.format(message)
+      Rails.logger.info "slack: #{filtered_message}"
       slack_account.ping filtered_message, :channel => "##{chat_room}"
     else
       Rails.logger.info "campfire: #{message}"

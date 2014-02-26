@@ -1,6 +1,8 @@
 # HeavenNotifier
 
-Heaven notifier relays messages from GitHub's [deployments API](http://developer.github.com/v3/repos/deployments/) to a chat service of your choice.
+HeavenNotifier relays messages from GitHub's [deployments status API](http://developer.github.com/v3/repos/deployments/#deployment-statuses) to a chat service of your choice.
+
+![](http://cloudapp.atmos.org/image/1M1D2t1O2F15/Slack%202014-02-25%2020-34-13%202014-02-25%2020-34-15.jpg)
 
 # Running Locally
 
@@ -24,7 +26,7 @@ Heaven notifier supports two chat services, [SlacHQ](https://slack.com/) and [Ca
 # Hosting on heroku
 
     $ heroku addons:add openredis:micro
-    $ heroku ps:scale worker=2
+    $ heroku ps:scale worker=1
     $ heroku config:add GITHUB_CLIENT_ID=<key>
     Setting config vars and restarting heroku-deployer... done, v8
     GITHUB_CLIENT_ID: <key>
@@ -37,4 +39,3 @@ Heaven notifier supports two chat services, [SlacHQ](https://slack.com/) and [Ca
 ## Environmental Variables
 
 * `GITHUB_TEAM_ID`: The GitHub team id to restrict resque access to.
-* `RAILS_SECRET_KEY_BASE`: The key configured in [secret_token.rb](/config/initializers/secret_token.rb).
