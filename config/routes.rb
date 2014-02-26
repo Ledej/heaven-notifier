@@ -5,5 +5,5 @@ HeavenNotifier::Application.routes.draw do
     mount Resque::Server.new, :at => "/resque"
   end
 
-  post "/events" => "callbacks#create"
+  post "/events" => "events#create"
 end

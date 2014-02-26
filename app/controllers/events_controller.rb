@@ -1,5 +1,4 @@
 class EventsController < ApplicationController
-
   def create
     request.body.rewind
     data = request.body.read
