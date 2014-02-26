@@ -39,24 +39,20 @@ class Notifier
     @slack_account ||= Slack::Notifier.new(slack_subdomain, slack_token)
   end
 
-  def data
-    payload['payload']
-  end
-
   def custom_payload
-    @custom_payload ||= JSON.parse(data['payload'])
+    @custom_payload ||= JSON.parse(payload['payload'])
   end
 
   def state
-    data['state']
+    payload['state']
   end
 
   def number
-    data['id']
+    payload['id']
   end
 
   def sha
-    data['sha'][0..7]
+    payload['sha'][0..7]
   end
 
   def commitish
@@ -76,11 +72,11 @@ class Notifier
   end
 
   def target_url
-    data['target_url']
+    payload['target_url']
   end
 
   def repo_name
-    data['repository']['name']
+    payload['repository']['name']
   end
 
   def post!(payload)
