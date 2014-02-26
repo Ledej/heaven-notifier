@@ -64,11 +64,11 @@ class Notifier
   end
 
   def chat_user
-    custom_payload['chat']['user'] || "unknown"
+    custom_payload['notify']['user'] || "unknown"
   end
 
   def chat_room
-    custom_payload['chat']['room']
+    custom_payload['notify']['room']
   end
 
   def target_url
