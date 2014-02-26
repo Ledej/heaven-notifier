@@ -1,4 +1,4 @@
-class HookReceiver
+class Receiver
   @queue = :events
 
   attr_accessor :event, :guid, :payload, :token
