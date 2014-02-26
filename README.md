@@ -1,8 +1,10 @@
 # HeavenNotifier
 
-HeavenNotifier relays messages from GitHub's [deployments status API](http://developer.github.com/v3/repos/deployments/#deployment-statuses) to a chat service of your choice.
+HeavenNotifier relays messages from GitHub's [deployment status API](http://developer.github.com/v3/repos/deployments/#deployment-statuses) to a chat service of your choice.
 
 ![](http://cloudapp.atmos.org/image/1M1D2t1O2F15/Slack%202014-02-25%2020-34-13%202014-02-25%2020-34-15.jpg)
+
+This is an event funnel for deployment activity. You will have lots of systems doing deployments, and this is the part that routes info back via your preferred protocol. Go nuts.
 
 # Running Locally
 
@@ -11,7 +13,7 @@ HeavenNotifier relays messages from GitHub's [deployments status API](http://dev
 
 # Notifiers
 
-Heaven notifier supports two chat services, [SlacHQ](https://slack.com/) and [Campfire](https://campfirenow.com/). It favors slackHQ if the appropriate environmental variables are present.
+HeavenNotifier supports two chat services, [SlackHQ](https://slack.com/) and [Campfire](https://campfirenow.com/). It favors slackHQ if the appropriate environmental variables are present.
 
 ## SlackHQ
 
@@ -32,6 +34,7 @@ Heaven notifier supports two chat services, [SlacHQ](https://slack.com/) and [Ca
 * A GitHub team that's allowed to view the resque queues.
 
 ## CLI Setup
+
     $ heroku addons:add openredis:micro
     $ heroku ps:scale worker=1
     $ heroku config:add GITHUB_CLIENT_ID=<key>
