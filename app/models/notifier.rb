@@ -24,7 +24,7 @@ class Notifier
   end
 
   def campfire_account
-    @campfire_account ||= Campfiyah::Account.new(subdomain, token)
+    @campfire_account ||= Campfiyah::Account.new(campfire_subdomain, token)
   end
 
   def slack_token
