@@ -25,6 +25,13 @@ Heaven notifier supports two chat services, [SlacHQ](https://slack.com/) and [Ca
 
 # Hosting on heroku
 
+## Required Setup
+
+* Access to a redis server for resque job processing.
+* OAuth application setup to authenticate against GitHub.
+* A GitHub team that's allowed to view the resque queues.
+
+## CLI Setup
     $ heroku addons:add openredis:micro
     $ heroku ps:scale worker=1
     $ heroku config:add GITHUB_CLIENT_ID=<key>
@@ -35,7 +42,10 @@ Heaven notifier supports two chat services, [SlacHQ](https://slack.com/) and [Ca
     GITHUB_CLIENT_SECRET: <secret>
     $ heroku config:add RAILS_SECRET_KEY_BASE=`ruby -rsecurerandom -e "print SecureRandom.hex"`
     RAILS_SECRET_KEY_BASE: <secret>
+    $ heroku config:add GITHUB_TEAM_ID=<teamid>
+    GITHUB_TEAM_ID: <teamid>
 
-## Environmental Variables
+# See Also
 
-* `GITHUB_TEAM_ID`: The GitHub team id to restrict resque access to.
+* [heaven](https://github.com/atmos/heaven)
+* [hubot-deploy](https://github.com/atmos/hubot-deploy)
