@@ -6,11 +6,6 @@ HeavenNotifier relays messages from GitHub's [deployment status API](http://deve
 
 This is an event funnel for deployment activity. You will have lots of systems doing deployments, and this is the part that routes info back via your preferred protocol. Go nuts.
 
-# Running Locally
-
-    $ bundle install --local --path vendor/gems
-    $ bundle exec foreman
-
 # Notifiers
 
 HeavenNotifier supports two chat services, [SlackHQ](https://slack.com/) and [Campfire](https://campfirenow.com/). It favors slackHQ if the appropriate environmental variables are present.
