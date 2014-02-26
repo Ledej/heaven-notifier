@@ -19,7 +19,6 @@ end
 group :development, :test do
   gem "pry"
   gem "sqlite3"
-  gem "debugger"
   gem "rspec-rails"
 end
 
