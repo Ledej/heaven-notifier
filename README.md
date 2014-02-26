@@ -1,4 +1,4 @@
-# HeavenNotifier
+# HeavenNotifier [![Build Status](https://travis-ci.org/atmos/heaven-notifier.png?branch=master)](https://travis-ci.org/atmos/heaven-notifier)
 
 HeavenNotifier relays messages from GitHub's [deployment status API](http://developer.github.com/v3/repos/deployments/#deployment-statuses) to a chat service of your choice.
 
