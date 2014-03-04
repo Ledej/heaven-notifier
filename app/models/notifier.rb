@@ -42,7 +42,7 @@ class Notifier
   end
 
   def custom_payload
-    @custom_payload ||= JSON.parse(payload['payload'])
+    @custom_payload ||= payload['payload']
   end
 
   def state
