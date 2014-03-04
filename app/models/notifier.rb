@@ -90,7 +90,7 @@ class Notifier
         message << "#{environment} "
       end
       message << "[deployment](#{target_url}) of #{repo_name} is done!"
-    when 'error'
+    when 'failure'
       message << "'s "
       if environment
         message << "#{environment} "
