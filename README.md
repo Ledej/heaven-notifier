@@ -45,5 +45,5 @@ HeavenNotifier supports two chat services, [SlackHQ](https://slack.com/) and [Ca
 
 # See Also
 
-* [heaven](https://github.com/atmos/heaven) - Listents for Deployment events from GitHub and executes the deployment for you.
+* [heaven](https://github.com/atmos/heaven) - Listens for Deployment events from GitHub and executes the deployment for you.
 * [hubot-deploy](https://github.com/atmos/hubot-deploy) - Kick off deployments from chat.
