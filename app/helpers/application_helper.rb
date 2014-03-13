@@ -14,12 +14,12 @@ module ApplicationHelper
     end
 
     def hook_source_ips
-      if addresses = Heaven.redis.get(hook_source_key)
+      if addresses = HeavenNotifier.redis.get(hook_source_key)
         JSON.parse(addresses)
       else
         addresses = Octokit::Client.new.get("/meta").hooks
-        Heaven.redis.set(hook_source_key, JSON.dump(addresses))
-        Heaven.redis.expire(hook_source_key, default_ttl)
+        HeavenNotifier.redis.set(hook_source_key, JSON.dump(addresses))
+        HeavenNotifier.redis.expire(hook_source_key, default_ttl)
         Rails.logger.info "Refreshed GitHub hook sources"
         addresses
       end
