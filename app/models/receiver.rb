@@ -15,17 +15,11 @@ class Receiver
   end
 
   def run!
-    return unless supported_event?
-
     notifier = Notifier.new(data)
     notifier.post!(data)
   end
 
   def self.perform(event, guid, data)
     new(event, guid, data).run!
-  end
-
-  def supported_event?
-    %w(deployment_status).include?(event)
   end
 end
