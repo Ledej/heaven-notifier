@@ -10,8 +10,12 @@ class EventsController < ApplicationController
       event    = request.headers['HTTP_X_GITHUB_EVENT']
       delivery = request.headers['HTTP_X_GITHUB_DELIVERY']
 
-      Resque.enqueue(Receiver, event, delivery, data)
-      render :status => 201, :json => "{}"
+      if %w(deployment_status ping).include?(event)
+        Resque.enqueue(Receiver, event, delivery, data)
+        render :status => 201, :json => "{}"
+      else
+        render :status => 404, :json => "{}"
+      end
     else
       Rails.logger.info "Invalid IP posting to the app, #{request.ip}"
       render :status => 404, :json => "{}"
