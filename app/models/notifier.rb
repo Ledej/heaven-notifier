@@ -120,7 +120,7 @@ class Notifier
     else
       puts "Unhandled deployment state, #{state}"
     end
-    message << " [ #{output_link('Output')} ] "
+    message << " #{output_link('Output')}"
     deliver(message)
   end
 end
