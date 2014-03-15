@@ -78,32 +78,49 @@ class Notifier
   end
 
   def repo_name
-    payload['repository']['name']
+    custom_payload['name'] || payload['repository']['name']
+  end
+
+  def repo_url(path = "")
+    payload['repository']['html_url'] + path
+  end
+
+  def user_link
+    "[#{chat_user}](https://github.com/#{chat_user})"
+  end
+
+  def output_link(link_title = "deployment")
+    "[#{link_title}](#{target_url})"
+  end
+
+  def repository_link(path = "")
+    "[#{repo_name}](#{repo_url(path)})"
   end
 
   def post!(payload)
-    message = "#{chat_user}"
+    message = user_link
     case state
     when 'success'
       message << "'s "
       if environment
         message << "#{environment} "
       end
-      message << "[deployment](#{target_url}) of #{repo_name} is done!"
+      message << "deployment of #{repository_link} is done! "
     when 'failure'
       message << "'s "
       if environment
         message << "#{environment} "
       end
-      message << "[deployment](#{target_url}) of #{repo_name} failed."
+      message << "deployment of #{repository_link} failed. "
     when 'pending'
-      message << " is [deploying](#{target_url}) #{repo_name}/#{commitish}"
+      message << " is deploying #{repository_link("/tree/#{commitish}")}"
       if environment
-        message << " to #{environment}"
+        message << " to #{environment}..."
       end
     else
       puts "Unhandled deployment state, #{state}"
     end
+    message << " #{output_link('Output')}"
     deliver(message)
   end
 end
