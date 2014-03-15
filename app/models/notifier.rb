@@ -105,21 +105,22 @@ class Notifier
       if environment
         message << "#{environment} "
       end
-      message << "#{output_link} of #{repository_link} is done!"
+      message << "deployment of #{repository_link} is done! "
     when 'failure'
       message << "'s "
       if environment
         message << "#{environment} "
       end
-      message << "#{output_link}[deployment](#{target_url}) of #{repository_link} failed."
+      message << "deployment of #{repository_link} failed. "
     when 'pending'
-      message << " is #{output_link('deploying')} #{repository_link("/tree/#{commitish}")}"
+      message << " is deploying #{repository_link("/tree/#{commitish}")}"
       if environment
-        message << " to #{environment}"
+        message << " to #{environment}..."
       end
     else
       puts "Unhandled deployment state, #{state}"
     end
+    message << " [ #{output_link('Output')} ] "
     deliver(message)
   end
 end
