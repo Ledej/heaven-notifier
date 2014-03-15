@@ -81,7 +81,7 @@ class Notifier
     custom_payload['name'] || payload['repository']['name']
   end
 
-  def repo_url(path)
+  def repo_url(path = "")
     payload['repository']['html_url'] + path
   end
 
@@ -94,7 +94,7 @@ class Notifier
   end
 
   def repository_link(path = "")
-    "[#{repo_name}](#{repo_url}#{path})"
+    "[#{repo_name}](#{repo_url(path)})"
   end
 
   def post!(payload)
