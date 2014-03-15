@@ -20,6 +20,8 @@ class Receiver
   end
 
   def self.perform(event, guid, data)
+    return unless event == "deployment_status"
+
     new(event, guid, data).run!
   end
 end

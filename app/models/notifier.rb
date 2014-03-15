@@ -81,8 +81,12 @@ class Notifier
     payload['repository']['name']
   end
 
+  def repo_url
+    payload['repository']['html_url']
+  end
+
   def user_link
-    "[@#{chat_user}](https://github.com/#{chat_user})"
+    "[#{chat_user}](https://github.com/#{chat_user})"
   end
 
   def output_link(link_title = "deployment")
@@ -90,6 +94,7 @@ class Notifier
   end
 
   def repository_link
+    "[#{repo_name}](#{repo_url})"
   end
 
   def post!(payload)
@@ -100,15 +105,15 @@ class Notifier
       if environment
         message << "#{environment} "
       end
-      message << "#{output_link} of #{repo_name} is done!"
+      message << "#{output_link} of #{repository_link} is done!"
     when 'failure'
       message << "'s "
       if environment
         message << "#{environment} "
       end
-      message << "#{output_link}[deployment](#{target_url}) of #{repo_name} failed."
+      message << "#{output_link}[deployment](#{target_url}) of #{repository_link} failed."
     when 'pending'
-      message << " is #{output_link('deploying')} #{repo_name}/#{commitish}"
+      message << " is #{output_link('deploying')} #{repository_link}/tree/#{commitish}"
       if environment
         message << " to #{environment}"
       end
