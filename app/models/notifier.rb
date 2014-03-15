@@ -78,11 +78,11 @@ class Notifier
   end
 
   def repo_name
-    payload['repository']['name']
+    custom_payload['name'] || payload['repository']['name']
   end
 
-  def repo_url
-    payload['repository']['html_url']
+  def repo_url(path)
+    payload['repository']['html_url'] + path
   end
 
   def user_link
@@ -113,7 +113,7 @@ class Notifier
       end
       message << "#{output_link}[deployment](#{target_url}) of #{repository_link} failed."
     when 'pending'
-      message << " is #{output_link('deploying')} #{repository_link}/tree/#{commitish}"
+      message << " is #{output_link('deploying')} #{repository_link("/tree/#{commitish}")}"
       if environment
         message << " to #{environment}"
       end
