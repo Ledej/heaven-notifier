@@ -93,8 +93,8 @@ class Notifier
     "[#{link_title}](#{target_url})"
   end
 
-  def repository_link
-    "[#{repo_name}](#{repo_url})"
+  def repository_link(path = "")
+    "[#{repo_name}](#{repo_url}#{path})"
   end
 
   def post!(payload)
