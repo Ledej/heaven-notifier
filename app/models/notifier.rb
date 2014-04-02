@@ -37,7 +37,7 @@ class Notifier
 
       slack_account.ping "",
         :channel     => "##{chat_room}",
-        :username    => "Deploying #{repo_name}",
+        :username    => "Shipping #{repo_name}",
         :icon_url    => "https://octodex.github.com/images/labtocat.png",
         :attachments => [{
           :text    => filtered_message,
@@ -90,6 +90,14 @@ class Notifier
 
   def sha
     payload['sha'][0..7]
+  end
+
+  def deployment_number
+    if matches = payload['deployment_url'].match(/.*\/(\d+)/)
+      matches[1]
+    else
+      0
+    end
   end
 
   def commitish
