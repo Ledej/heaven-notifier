@@ -32,11 +32,14 @@ HeavenNotifier supports two chat services, [SlackHQ](https://slack.com/) and [Ca
 
     $ heroku addons:add openredis:micro
     $ heroku ps:scale worker=1
+    $ heroku config:add GITHUB_OCTOKIT_CLIENT_TOKEN=<token>
+    Setting config vars and restarting heaven-notifier... done, v7
+    GITHUB_OCTOKIT_CLIENT_TOKEN: <token>
     $ heroku config:add GITHUB_CLIENT_ID=<key>
-    Setting config vars and restarting heaven... done, v8
+    Setting config vars and restarting heaven-notifier... done, v8
     GITHUB_CLIENT_ID: <key>
     $ heroku config:add GITHUB_CLIENT_SECRET=<secret>
-    Setting config vars and restarting heaven... done, v9
+    Setting config vars and restarting heaven-notifier... done, v9
     GITHUB_CLIENT_SECRET: <secret>
     $ heroku config:add RAILS_SECRET_KEY_BASE=`ruby -rsecurerandom -e "print SecureRandom.hex"`
     RAILS_SECRET_KEY_BASE: <secret>

@@ -1,23 +1,20 @@
 class EventsController < ApplicationController
-  include ApplicationHelper
+  include WebhookValidations
+
+  before_filter :verify_incoming_webhook_address!
   skip_before_filter :verify_authenticity_token, :only => [:create]
 
   def create
-    if incoming_ip_valid?(request.ip)
+    event    = request.headers['HTTP_X_GITHUB_EVENT']
+    delivery = request.headers['HTTP_X_GITHUB_DELIVERY']
+
+    if %w(deployment_status ping).include?(event)
       request.body.rewind
       data = request.body.read
 
-      event    = request.headers['HTTP_X_GITHUB_EVENT']
-      delivery = request.headers['HTTP_X_GITHUB_DELIVERY']
-
-      if %w(deployment_status ping).include?(event)
-        Resque.enqueue(Receiver, event, delivery, data)
-        render :status => 201, :json => "{}"
-      else
-        render :status => 404, :json => "{}"
-      end
+      Resque.enqueue(Receiver, event, delivery, data)
+      render :status => 201, :json => "{}"
     else
-      Rails.logger.info "Invalid IP posting to the app, #{request.ip}"
       render :status => 404, :json => "{}"
     end
   end
