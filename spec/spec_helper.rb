@@ -6,6 +6,7 @@ ENV["RAILS_SECRET_KEY_BASE"] ||= SecureRandom.uuid
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'webmock/rspec'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -22,6 +23,8 @@ RSpec.configure do |config|
   config.order = "random"
   
   config.before do
+    stub_meta
+
     Resque.inline = true
     Campfiyah.enable_mock!
   end
@@ -30,10 +33,14 @@ RSpec.configure do |config|
     File.read(File.join(File.dirname(__FILE__), "fixtures", "#{name}.json"))
   end
 
-  def default_headers(event)
+  def default_headers(event, remote_ip = "192.30.252.41")
     {
       'ACCEPT'                 => 'application/json' ,
       'CONTENT_TYPE'           => 'application/json',
+
+      'REMOTE_ADDR'            => remote_ip,
+      'HTTP_X_FORWARDED_FOR'   => remote_ip,
+
       'HTTP_X_GITHUB_EVENT'    => event,
       'HTTP_X_GITHUB_DELIVERY' => SecureRandom.uuid
     }
