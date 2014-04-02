@@ -5,12 +5,47 @@ class Notifier
     @payload = payload
   end
 
+  def ascii_face
+    case state
+    when "pending"
+      "•̀.̫•́✧"
+    when "success"
+      "(◕‿◕)"
+    when "failure"
+      "ಠﭛಠ"
+    when "error"
+      "¯_(ツ)_/¯"
+    else
+      "٩◔̯◔۶"
+    end
+  end
+
+  def pending?
+    state == "pending"
+  end
+
+  def green?
+    %w(pending success).include?(state)
+  end
+
   def deliver(message)
     if slack_token
-      filtered_message = Slack::Notifier::LinkFormatter.format(message)
+      output_message   = Slack::Notifier::LinkFormatter.format(output_link('Logs'))
+      filtered_message = Slack::Notifier::LinkFormatter.format(message + " #{ascii_face}")
+
       Rails.logger.info "slack: #{filtered_message}"
-      slack_account.ping filtered_message, :channel => "##{chat_room}"
+
+      slack_account.ping "",
+        :channel     => "##{chat_room}",
+        :username    => "Deploying #{repo_name}",
+        :icon_url    => "https://octodex.github.com/images/labtocat.png",
+        :attachments => [{
+          :text    => filtered_message,
+          :color   => green? ? "good" : "danger",
+          :pretext => pending? ? output_message : " "
+        }]
     else
+      message << " #{output_link('Output')}"
       Rails.logger.info "campfire: #{message}"
       room = campfire_account.room_by_id(chat_room)
       room.message(message)
@@ -120,7 +155,6 @@ class Notifier
     else
       puts "Unhandled deployment state, #{state}"
     end
-    message << " #{output_link('Output')}"
     deliver(message)
   end
 end
