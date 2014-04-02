@@ -8,7 +8,7 @@ describe "receiving GitHub hooks" do
   end
   
   it "ignore unwanted incoming ips" do
-    post "/events", fixture_data("deployment"), default_headers("deployment", "127.0.0.1")
+    post "/events", fixture_data("ping"), default_headers("ping", "127.0.0.1")
 
     expect(response).to be_not_found
   end
