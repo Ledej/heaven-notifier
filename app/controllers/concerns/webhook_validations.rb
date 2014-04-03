@@ -38,7 +38,7 @@ module WebhookValidations
         if addresses = HeavenNotifier.redis.get(source_key)
           JSON.parse(addresses)
         else
-          addresses = api.get("/meta").hooks
+          addresses = oauth_client_api.get("/meta").hooks
           HeavenNotifier.redis.set(source_key, JSON.dump(addresses))
           HeavenNotifier.redis.expire(source_key, default_ttl)
           Rails.logger.info "Refreshed GitHub hook sources"
