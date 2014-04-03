@@ -2,7 +2,7 @@
 
 HeavenNotifier relays messages from GitHub's [deployment status API](http://developer.github.com/v3/repos/deployments/#deployment-statuses) to a chat service of your choice.
 
-![](http://cloudapp.atmos.org/image/1M1D2t1O2F15/Slack%202014-02-25%2020-34-13%202014-02-25%2020-34-15.jpg)
+![](http://f.cl.ly/items/0b2d3m1b3u2V2v3T1G2Q/Slack%202014-04-03%2011-15-49%202014-04-03%2011-15-51.jpg)
 
 This is an event funnel for deployment activity. You will have lots of systems doing deployments, and this is the part that routes info back via your preferred protocol. Go nuts.
 
