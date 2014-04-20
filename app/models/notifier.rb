@@ -45,10 +45,12 @@ class Notifier
           :pretext => pending? ? output_message : " "
         }]
     elsif hipchat_token
+      filtered_message = message + " #{ascii_face}"
       Rails.logger.info "hipchat: #{filtered_message}"
 
-      hipchat_client["#{hipchat_room}"].send "hubot", message + " #{ascii_face}", 
-        :color => green? ? "green" : "red"
+      hipchat_client["#{hipchat_room}"].send "hubot", filtered_message,
+        :color => green? ? "green" : "red",
+        :notify => 1
     else
       message << " #{output_link('Output')}"
       Rails.logger.info "campfire: #{message}"
