@@ -47,7 +47,7 @@ class Notifier
     elsif hipchat_token
       Rails.logger.info "hipchat: #{filtered_message}"
 
-      hipchat_client["Developers Team"].send "hubot", message + " #{ascii_face}", 
+      hipchat_client["#{hipchat_room}"].send "hubot", message + " #{ascii_face}", 
         :color => green? ? "green" : "red"
     else
       message << " #{output_link('Output')}"
@@ -83,6 +83,10 @@ class Notifier
 
   def hipchat_token
     ENV['HIPCHAT_TOKEN']
+  end
+
+  def hipchat_room
+    ENV['HIPCHAT_ROOM'] || "Developers"
   end
 
   def hipchat_client
