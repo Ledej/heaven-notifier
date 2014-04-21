@@ -49,7 +49,7 @@ class Notifier
       Rails.logger.info "hipchat: #{filtered_message}"
 
       hipchat_client["#{hipchat_room}"].send "hubot", filtered_message,
-        :color => green? ? "green" : "red",
+        :color => pending? ? "yellow" : (green? ? "green" : "red"),
         :notify => 1,
         :message_format => "text"
     else
