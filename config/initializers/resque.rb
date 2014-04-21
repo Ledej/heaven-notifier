@@ -4,6 +4,8 @@ module HeavenNotifier
   def self.redis
     @redis ||= if ENV["OPENREDIS_URL"]
                  Redis.new(:url => ENV['OPENREDIS_URL'])
+               elsif ENV["REDISCLOUD_URL"]
+                 Redis.new(:url => ENV['REDISCLOUD_URL'])
                elsif ENV["BOXEN_REDIS_URL"]
                  Redis.new(:url => ENV['BOXEN_REDIS_URL'])
                else
