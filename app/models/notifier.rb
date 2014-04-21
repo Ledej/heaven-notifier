@@ -148,15 +148,24 @@ class Notifier
   end
 
   def user_link
-    "[#{chat_user}](https://github.com/#{chat_user})"
+    msg = "[#{chat_user}](https://github.com/#{chat_user})"
+    if hipchat_token
+      msg = "@#{chat_user}"
+    end
   end
 
   def output_link(link_title = "deployment")
-    "[#{link_title}](#{target_url})"
+    msg = "[#{link_title}](#{target_url})"
+    if hipchat_token
+      msg = "#{target_url}"
+    end
   end
 
   def repository_link(path = "")
-    "[#{repo_name}](#{repo_url(path)})"
+    msg = "[#{repo_name}](#{repo_url(path)})"
+    if hipchat_token
+      msg = "#{repo_url(path)}"
+    end
   end
 
   def post!(payload)
