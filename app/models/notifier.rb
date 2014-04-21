@@ -50,7 +50,8 @@ class Notifier
 
       hipchat_client["#{hipchat_room}"].send "hubot", filtered_message,
         :color => green? ? "green" : "red",
-        :notify => 1
+        :notify => 1,
+        :message_format => "text"
     else
       message << " #{output_link('Output')}"
       Rails.logger.info "campfire: #{message}"
