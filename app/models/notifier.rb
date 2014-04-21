@@ -44,6 +44,13 @@ class Notifier
           :color   => green? ? "good" : "danger",
           :pretext => pending? ? output_message : " "
         }]
+    elsif hipchat_token
+      filtered_message = message + " #{ascii_face}"
+      Rails.logger.info "hipchat: #{filtered_message}"
+
+      hipchat_client["#{hipchat_room}"].send "hubot", filtered_message,
+        :color => green? ? "green" : "red",
+        :notify => 1
     else
       message << " #{output_link('Output')}"
       Rails.logger.info "campfire: #{message}"
@@ -74,6 +81,18 @@ class Notifier
 
   def slack_account
     @slack_account ||= Slack::Notifier.new(slack_subdomain, slack_token)
+  end
+
+  def hipchat_token
+    ENV['HIPCHAT_TOKEN']
+  end
+
+  def hipchat_room
+    ENV['HIPCHAT_ROOM'] || "Developers"
+  end
+
+  def hipchat_client
+    @hipchat_client ||= HipChat::Client.new(hipchat_token)
   end
 
   def custom_payload
