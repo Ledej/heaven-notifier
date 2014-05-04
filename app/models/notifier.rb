@@ -101,11 +101,11 @@ class Notifier
   end
 
   def commitish
-    custom_payload['branch'] || sha
+    payload['ref']
   end
 
   def environment
-    custom_payload['environment'] || 'production'
+    payload['environment']
   end
 
   def chat_user
