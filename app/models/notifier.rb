@@ -101,11 +101,15 @@ class Notifier
   end
 
   def commitish
-    custom_payload['branch'] || sha
+    payload['ref']
   end
 
   def environment
-    custom_payload['environment'] || 'production'
+    payload['environment']
+  end
+
+  def target_url
+    payload['target_url']
   end
 
   def chat_user
@@ -114,10 +118,6 @@ class Notifier
 
   def chat_room
     custom_payload['notify']['room']
-  end
-
-  def target_url
-    payload['target_url']
   end
 
   def repo_name
@@ -144,22 +144,11 @@ class Notifier
     message = user_link
     case state
     when 'success'
-      message << "'s "
-      if environment
-        message << "#{environment} "
-      end
-      message << "deployment of #{repository_link} is done! "
+      message << "'s #{environment} deployment of #{repository_link} is done! "
     when 'failure'
-      message << "'s "
-      if environment
-        message << "#{environment} "
-      end
-      message << "deployment of #{repository_link} failed. "
+      message << "'s #{environment} deployment of #{repository_link} failed. "
     when 'pending'
-      message << " is deploying #{repository_link("/tree/#{commitish}")}"
-      if environment
-        message << " to #{environment}..."
-      end
+      message << " is deploying #{repository_link("/tree/#{commitish}")} to #{environment}"
     else
       puts "Unhandled deployment state, #{state}"
     end
