@@ -8,7 +8,7 @@ This is an event funnel for deployment activity. You will have lots of systems d
 
 # Notifiers
 
-HeavenNotifier supports two chat services, [SlackHQ](https://slack.com/) and [Campfire](https://campfirenow.com/). It favors slackHQ if the appropriate environmental variables are present.
+HeavenNotifier supports three chat services, [SlackHQ](https://slack.com/), [Campfire](https://campfirenow.com/) and [HipChat](https://hipchat.com). It favors slackHQ if the appropriate environmental variables are present.
 
 ## SlackHQ
 
@@ -19,6 +19,11 @@ HeavenNotifier supports two chat services, [SlackHQ](https://slack.com/) and [Ca
 
 * `CAMPFIRE_TOKEN`: The token to send messages to campfire
 * `CAMPFIRE_SUBDOMAIN`: The default subdomain to post campfire messages to
+
+## HipChat
+
+* `HIPCHAT_TOKEN`: The notification token to send messages to hipchat
+* `HIPCHAT_ROOM`: The room name to post messages to
 
 # Hosting on heroku
 
