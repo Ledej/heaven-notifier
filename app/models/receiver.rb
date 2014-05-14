@@ -15,7 +15,7 @@ class Receiver
   end
 
   def run!
-    notifier = Notifier.new(data)
+    notifier = Notifier.for(data)
     notifier.post!(data)
   end
 
