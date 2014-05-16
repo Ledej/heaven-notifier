@@ -2,7 +2,7 @@ module Notifier
   def self.for(payload)
     if slack?
       Notifier::Slack.new(payload)
-    elsif hipchat_token
+    elsif hipchat?
       Notifier::Hipchat.new(payload)
     else
       Notifier::Campfire.new(payload)
