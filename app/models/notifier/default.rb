@@ -45,12 +45,8 @@ module Notifier
       payload['sha'][0..7]
     end
 
-    def deployment
-      payload['deployment']
-    end
-
     def deployment_payload
-      @deployment_payload ||= deployment['payload']
+      @deployment_payload ||= payload['payload']
     end
 
     def deployment_number
