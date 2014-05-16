@@ -1,8 +1,8 @@
 module Notifier
   class Slack < Notifier::Default
     def deliver(message)
-      output_message   = Slack::Notifier::LinkFormatter.format(output_link('Logs'))
-      filtered_message = Slack::Notifier::LinkFormatter.format(message + " #{ascii_face}")
+      output_message   = ::Slack::Notifier::LinkFormatter.format(output_link('Logs'))
+      filtered_message = ::Slack::Notifier::LinkFormatter.format(message + " #{ascii_face}")
 
       Rails.logger.info "slack: #{filtered_message}"
 
@@ -26,7 +26,7 @@ module Notifier
     end
 
     def slack_account
-      @slack_account ||= Slack::Notifier.new(slack_subdomain, slack_token)
+      @slack_account ||= ::Slack::Notifier.new(slack_subdomain, slack_token)
     end
   end
 end
