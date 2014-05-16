@@ -61,12 +61,12 @@ module Notifier
       payload['ref']
     end
 
-    def environment
-      payload['environment']
-    end
-
     def target_url
       payload['target_url']
+    end
+
+    def environment
+      deployment_payload['environment']
     end
 
     def chat_user
